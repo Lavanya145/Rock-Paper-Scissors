@@ -3,28 +3,18 @@
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script type="text/javascript">
-		function rockFunction() {
-	    	var x = document.getElementById("rockBtn").value;
-	    	document.getElementById("demo").innerHTML = x;
-		}	
-		function paperFunction() {
-	    	var y = document.getElementById("paperBtn").value;
-	    	document.getElementById("demo").innerHTML = y;
-		}
-		function sciFunction() {
-	    	var z = document.getElementById("sciBtn").value;
-	    	document.getElementById("demo").innerHTML = z;
-		}	
-	</script>
-	
 </head>
 <body>
 	<h2>Rock-Paper-Scissors</h2>
+	<script src="app.js"></script>
 
-	<button id="rockBtn" value="You selected Rock" onclick="rockFunction()">Rock</button><br><br>
-	<button id="paperBtn" value="You selected Paper" onclick="paperFunction()">Paper</button><br><br>
-	<button id="sciBtn" value="You selected Scissors" onclick="sciFunction()">Scissors</button><br>
+	<button id="rockBtn" name="rock" value="You selected Rock" onclick="rockFunction()">Rock</button><br><br>
+	<button id="paperBtn" name="paper" value="You selected Paper" onclick="paperFunction()">Paper</button><br><br>
+	<button id="sciBtn" name="scissors" value="You selected Scissors" onclick="sciFunction()">Scissors</button><br>
 
-	<p id="demo"></p></body>
+	<p id="demo"></p>
+	<p id="bot"></p>
+	<p id="winner"></p>
+
+</body>
 </html>
