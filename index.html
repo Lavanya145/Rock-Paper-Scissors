@@ -7,7 +7,12 @@
 <body>
 	<h2>Rock-Paper-Scissors</h2>
 	<script src="app.js"></script>
-
+	<form id="timeForm">
+		<input type="number" name="minutes" id="minutes" placeholder="minutes to play" max="1440" min="0" />
+		<input type="number" name="seconds" id="seconds" placeholder="Seconds to play" max="60" min="0" />
+		<input type="submit">
+	</form>
+	<h3 id="gameStatus">Time left: <span id="timeLeft"></span> seconds</h3>
 	<button id="rockBtn" name="rock" value="You selected Rock" onclick="rockFunction()">Rock</button><br><br>
 	<button id="paperBtn" name="paper" value="You selected Paper" onclick="paperFunction()">Paper</button><br><br>
 	<button id="sciBtn" name="scissors" value="You selected Scissors" onclick="sciFunction()">Scissors</button><br>
@@ -15,6 +20,38 @@
 	<p id="demo"></p>
 	<p id="bot"></p>
 	<p id="winner"></p>
+	<script type="text/javascript">
+		$(document).ready(function()	{
+			$("#gameStatus").html("");
+			window.gameTimeoutFunction = function()	{
+				console.log("timeout called")
+				if(window.timer == 0)	{
+					stopGame();
+					document.getElementById("rockBtn").disabled=true;
+					document.getElementById("paperBtn").disabled=true;
+					document.getElementById("sciBtn").disabled=true;
 
+				}
+				if (window.timer <= 10 && window.timer>0) {
+					$("#gameStatus").html('<span class="blink">Hurry up!</span> Time left: <span id="timeLeft"></span> seconds');
+				}
+				window.timer = window.timer - 1;
+				$("#timeLeft").html(window.timer);
+			};
+		});
+		
+		$("#timeForm").on('submit', function(e)	{
+			e.preventDefault();
+			$("#gameStatus").html('Time left: <span id="timeLeft"></span> seconds');
+			if($("#minutes").val()){
+				window.timer = (parseInt($("#minutes").val()) * 60) + parseInt($("#seconds").val());	
+			}
+			else	{
+				window.timer = parseInt($("#seconds").val());
+			}
+			console.log(window.timer);
+			startGame();
+		});
+	</script>
 </body>
 </html>

@@ -1,6 +1,17 @@
 var objectsArray = ['rock', 'paper', 'scissors'];
 var userWin=0, computerWin=0, userLoss=0, computerLoss=0, userDraw=0,computerDraw = 0;
 
+function startGame()	{
+	$("#timeLeft").html(window.timer);
+	window.gameTimeout = setInterval(gameTimeoutFunction, 1000);
+}
+
+function stopGame()	{
+	$("#gameStatus").html("Game over!");
+	clearTimeout(window.gameTimeout);
+}
+
+
 function calculateWinner(computerChoice, userChoice)	{
 	if(userChoice == computerChoice){
 			userDraw++;
