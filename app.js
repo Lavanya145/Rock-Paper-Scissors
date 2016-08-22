@@ -80,31 +80,28 @@ function updateScore()	{
 }
 
 function rockFunction() {
-	var x = document.getElementById("rockBtn").value;
-	document.getElementById("demo").innerHTML = x;
+	$("#demo").html($("#rockBtn").attr("value"));
 	var ranNum = Math.floor(Math.random()*3);
 	var choice = objectsArray[ranNum];
-	document.getElementById("bot").innerHTML = "Computer selected" + " " + choice;
+	$("#bot").html(choice);
 	document.getElementById("winner").innerHTML = calculateWinner(choice, document.getElementById("rockBtn").name);
 	updateScore();
 }	
 
 function paperFunction() {
-	var y = document.getElementById("paperBtn").value;
-	document.getElementById("demo").innerHTML = y;
+	$("#demo").html($("#paperBtn").attr("value"));
 	var ranNum = Math.floor(Math.random()*3);
 	var choice = objectsArray[ranNum];
-	document.getElementById("bot").innerHTML = "Computer selected" + " " + choice;
+	$("#bot").html(choice);	
 	document.getElementById("winner").innerHTML = calculateWinner(choice, document.getElementById("paperBtn").name);
 	updateScore();
 }
 
 function sciFunction() {
-	var z = document.getElementById("sciBtn").value;
-	document.getElementById("demo").innerHTML = z;
+	$("#demo").html($("#sciBtn").attr("value"));	
 	var ranNum = Math.floor(Math.random()*3);
 	var choice = objectsArray[ranNum];
-	document.getElementById("bot").innerHTML = "Computer selected" + " " + choice;
+	$("#bot").html(choice);
 	document.getElementById("winner").innerHTML = calculateWinner(choice, document.getElementById("sciBtn").name);
 	updateScore();
 }

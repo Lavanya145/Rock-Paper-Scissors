@@ -17,11 +17,11 @@
 		</div>
 		<div class="input-handler">
 			<label for="minutes">Minutes: </label>
-			<input type="number" name="minutes" id="minutes" value="0" min="0" />	
+			<input type="number" name="minutes" id="minutes" value="0" max="1440" min="0" required="true" />	
 		</div>
 		<div class="input-handler">
 			<label for="seconds">Seconds: </label>
-			<input type="number" name="seconds" id="seconds" value="15" min="0" />
+			<input type="number" name="seconds" id="seconds" value="15" max="60" min="0" required="true" />
 		</div>
 		<button type="submit" style="margin-left:20%;" value="start">Start</button>
 		<button type="reset" value="Reset" onclick="resetAll()">Reset</button>
@@ -39,9 +39,9 @@
 		<section class="choices-row">
 			<div class="player-choice">
 				<h3>User choice: </h3>
-				<button id="rockBtn" name="rock" value="You selected Rock" onclick="rockFunction()" class='user-choice-button'>Rock</button>
-				<button id="paperBtn" name="paper" value="You selected Paper" onclick="paperFunction()" class='user-choice-button'>Paper</button>
-				<button id="sciBtn" name="scissors" value="You selected Scissors" onclick="sciFunction()" class='user-choice-button'>Scissors</button>
+				<button id="rockBtn" name="rock" value="Rock" onclick="rockFunction()" class='user-choice-button'>Rock</button>
+				<button id="paperBtn" name="paper" value="Paper" onclick="paperFunction()" class='user-choice-button'>Paper</button>
+				<button id="sciBtn" name="scissors" value="Scissors" onclick="sciFunction()" class='user-choice-button'>Scissors</button>
 				<span id="demo"></span>
 			</div>
 			<div class="bot-choice">
@@ -96,7 +96,7 @@
 			if($("#minutes").val()){
 				window.timer = (parseInt($("#minutes").val()) * 60) + parseInt($("#seconds").val());	
 			}
-			else	{
+			else {
 				window.timer = parseInt($("#seconds").val());
 			}
 			window.setTime = window.timer;
