@@ -3,34 +3,83 @@
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0,minimal-ui" id="viewport">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
 <body>
-	<h2>Rock-Paper-Scissors</h2>
+	<h2 class="align-center">Rock-Paper-Scissors</h2>
 	<script src="app.js"></script>
 	<form id="timeForm">
-		<input type="number" name="minutes" id="minutes" placeholder="minutes to play" max="1440" min="0" />
-		<input type="number" name="seconds" id="seconds" placeholder="Seconds to play" max="60" min="0" />
-		<input type="submit">
+		<div class="input-handler">
+			<h3 style="margin-left:15%">Set time</h3>
+		</div>
+		<div class="input-handler">
+			<label for="minutes">Minutes: </label>
+			<input type="number" name="minutes" id="minutes" value="0" min="0" />	
+		</div>
+		<div class="input-handler">
+			<label for="seconds">Seconds: </label>
+			<input type="number" name="seconds" id="seconds" value="15" min="0" />
+		</div>
+		<button type="submit" style="margin-left:20%;" value="start">Start</button>
+		<button type="reset" value="Reset" onclick="resetAll()">Reset</button>
 	</form>
-	<h3 id="gameStatus">Time left: <span id="timeLeft"></span> seconds</h3>
-	<button id="rockBtn" name="rock" value="You selected Rock" onclick="rockFunction()">Rock</button><br><br>
-	<button id="paperBtn" name="paper" value="You selected Paper" onclick="paperFunction()">Paper</button><br><br>
-	<button id="sciBtn" name="scissors" value="You selected Scissors" onclick="sciFunction()">Scissors</button><br>
+	<div class="game">
+		<div class="control-buttons-row">
+			<div class="input-handler">
+				<label style="text-align:left;">Controls:</label>
+				<button id="resetTime" onclick="resetGame()">Reset</button>
+				<button id="stopGame" onclick="stopGame()">Stop</button>
+			</div>
+		</div>
+		<h3 id="gameStatus">Time left: <span id="timeLeft"></span> seconds</h3>
 
-	<p id="demo"></p>
-	<p id="bot"></p>
-	<p id="winner"></p>
+		<section class="choices-row">
+			<div class="player-choice">
+				<h3>User choice: </h3>
+				<button id="rockBtn" name="rock" value="You selected Rock" onclick="rockFunction()" class='user-choice-button'>Rock</button>
+				<button id="paperBtn" name="paper" value="You selected Paper" onclick="paperFunction()" class='user-choice-button'>Paper</button>
+				<button id="sciBtn" name="scissors" value="You selected Scissors" onclick="sciFunction()" class='user-choice-button'>Scissors</button>
+				<span id="demo"></span>
+			</div>
+			<div class="bot-choice">
+				<h3>Bot choice:</h3>
+				<span id="bot" style="font-size: 1rem;"></span>		
+			</div>
+		</section>
+		<h3 id="winner"></h3>
+	</div>
+	<div class="scores">
+		<h4 style="font-size:1.6rem">Scores:</h4>
+		<table>
+			<thead>
+				<td>User</td>
+				<td>Bot</td>
+				<td>Draw</td>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="userWins">0</td>
+					<td id="botWins">0</td>
+					<td id="drawCounter">0</td>
+				</tr>
+			</tbody>
+		</table>
+		<h4 id="winnerID"></h4>
+	</div>
+	
 	<script type="text/javascript">
 		$(document).ready(function()	{
+			init();
+			// hide the gameplay area
+			$(".game").hide();
+			$(".scores").hide();
 			$("#gameStatus").html("");
 			window.gameTimeoutFunction = function()	{
-				console.log("timeout called")
 				if(window.timer == 0)	{
 					stopGame();
-					document.getElementById("rockBtn").disabled=true;
-					document.getElementById("paperBtn").disabled=true;
-					document.getElementById("sciBtn").disabled=true;
-
 				}
 				if (window.timer <= 10 && window.timer>0) {
 					$("#gameStatus").html('<span class="blink">Hurry up!</span> Time left: <span id="timeLeft"></span> seconds');
@@ -41,6 +90,7 @@
 		});
 		
 		$("#timeForm").on('submit', function(e)	{
+
 			e.preventDefault();
 			$("#gameStatus").html('Time left: <span id="timeLeft"></span> seconds');
 			if($("#minutes").val()){
@@ -49,7 +99,7 @@
 			else	{
 				window.timer = parseInt($("#seconds").val());
 			}
-			console.log(window.timer);
+			window.setTime = window.timer;
 			startGame();
 		});
 	</script>

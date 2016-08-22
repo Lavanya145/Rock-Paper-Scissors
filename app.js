@@ -1,55 +1,82 @@
 var objectsArray = ['rock', 'paper', 'scissors'];
-var userWin=0, computerWin=0, userLoss=0, computerLoss=0, userDraw=0,computerDraw = 0;
+function init()	{
+	window.userWin=0;
+	window.computerWin=0;
+	window.userDraw=0;
+	updateScore();
+	$("#winnerID").html("");
+	$("#bot").html('');
+	$("#demo").html("");
+	$("#winner").html("");
+}
 
 function startGame()	{
+	init();
+	//show the gamplay area
+	$(".game").show();
+	$(".scores").show();
+	//hide the form
+	$('form').hide();
+	//update timer
 	$("#timeLeft").html(window.timer);
+	//start interval to display time
 	window.gameTimeout = setInterval(gameTimeoutFunction, 1000);
 }
 
 function stopGame()	{
+	$("form").show();
+	$(".game").hide();
 	$("#gameStatus").html("Game over!");
+	if(window.userWin > window.computerWin)	{
+		$("#winnerID").html("You won the game!");	
+	}
+	if(window.computerWin > window.userWin)	{
+		$("#winnerID").html("Bot won the game!");
+	}
+	if(window.computerWin == window.userWin)	{
+		$("#winnerID").html("Its a tie!");
+	}
 	clearTimeout(window.gameTimeout);
 }
 
 
 function calculateWinner(computerChoice, userChoice)	{
 	if(userChoice == computerChoice){
-			userDraw++;
-			computerDraw++;
+			window.userDraw++;
 			return "Draw!";		
 	}	
 	else {
 		if(computerChoice == 'rock' && userChoice == 'paper')	{
-			userWin++;
-			computerLoss++;
+			window.userWin++;
 			return "You win!";					
 		}
 		if(computerChoice == 'rock' && userChoice == 'scissors')	{
-			computerWin++;
-			userLoss++;
+			window.computerWin++;
 			return "Computer wins!";
 		}
 		if(computerChoice == 'paper' && userChoice == 'rock')	{
-			computerWin++;
-			userLoss++;
+			window.computerWin++;
 			return "Computer wins!";
 		}
 		if(computerChoice == 'paper' && userChoice == 'scissors')	{
-			userWin++;
-			computerLoss++;
+			window.userWin++;
 			return "You win!";
 		}
 		if(computerChoice == 'scissors' && userChoice == 'paper')	{
-			computerWin++;
-			userLoss++;
+			window.computerWin++;
 			return "Computer wins!";
 		}
 		if(computerChoice == 'scissors' && userChoice == 'rock')	{
-			userWin++;
-			computerLoss++;
+			window.userWin++;
 			return "You win!";
 		}
 	}
+}
+
+function updateScore()	{
+	$("#userWins").text(window.userWin);
+	$("#botWins").text(window.computerWin);
+	$("#drawCounter").text(window.userDraw);
 }
 
 function rockFunction() {
@@ -59,6 +86,7 @@ function rockFunction() {
 	var choice = objectsArray[ranNum];
 	document.getElementById("bot").innerHTML = "Computer selected" + " " + choice;
 	document.getElementById("winner").innerHTML = calculateWinner(choice, document.getElementById("rockBtn").name);
+	updateScore();
 }	
 
 function paperFunction() {
@@ -68,6 +96,7 @@ function paperFunction() {
 	var choice = objectsArray[ranNum];
 	document.getElementById("bot").innerHTML = "Computer selected" + " " + choice;
 	document.getElementById("winner").innerHTML = calculateWinner(choice, document.getElementById("paperBtn").name);
+	updateScore();
 }
 
 function sciFunction() {
@@ -77,4 +106,17 @@ function sciFunction() {
 	var choice = objectsArray[ranNum];
 	document.getElementById("bot").innerHTML = "Computer selected" + " " + choice;
 	document.getElementById("winner").innerHTML = calculateWinner(choice, document.getElementById("sciBtn").name);
+	updateScore();
+}
+
+function resetAll()	{
+	console.log("reset called");
+	init();
+	updateScore();
+}
+
+function resetGame()	{
+	clearTimeout(window.gameTimeout);
+	window.timer = window.setTime;
+	startGame();
 }
